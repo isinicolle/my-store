@@ -18,6 +18,10 @@ app.get('/users', (req, res) => {
   ]);
 });
 
+app.get('/users/filtrer', (req, res) => {
+  console.log('Lo especifico va primero que lo dinamico')
+});
+
 app.get('/users/:Userid', (req, res) => {
   const {Userid} = req.params.Userid;
   res.json({id: Userid, name: 'John Doe'});
@@ -48,7 +52,9 @@ app.get('/productos', (req, res) => {
 
 app.get('/products', (req, res) => {
 const products = [];
-for(let i = 0; i < 10; i++){
+const {size} = req.query;
+const limit = size || 10;
+for(let i = 0; i < limit; i++){
   products.push({
     id: faker.random.uuid(),
     name: faker.commerce.productName(),
@@ -60,6 +66,8 @@ res.json(products);
 
 
 });
+
+
 
 app.listen(port , () => {
   console.log('Mi port', port)
