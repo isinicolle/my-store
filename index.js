@@ -1,4 +1,6 @@
 const express = require('express');
+const faker = require('faker');
+
 const app = express();
 const port = 3000;
 
@@ -27,6 +29,34 @@ app.get('/users/:Userid/member/:memberId', (req, res) => {
         Userid: Userid,
         memberId: memberId
       });
+
+
+});
+
+app.get('/productos', (req, res) => {
+  const {limit, offset} = req.query;
+
+  if(limit && offset){
+    res.json({
+      limit: limit,
+      offset: offset
+    });
+  } else {
+    res.send('No params');
+  }
+});
+
+app.get('/products', (req, res) => {
+const products = [];
+for(let i = 0; i < 10; i++){
+  products.push({
+    id: faker.random.uuid(),
+    name: faker.commerce.productName(),
+    price: parseInt(faker.commerce.price()),
+    image: faker.image.imageUrl()
+  });
+}
+res.json(products);
 
 
 });
