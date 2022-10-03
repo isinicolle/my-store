@@ -20,4 +20,13 @@ router.get('/products', (req, res) => {
 
 });
 
+router.post('/products', (req, res) => {
+  const body = req.body;
+  res.status(201).json({
+    message: 'Product created',
+    data: body
+  });
+});
+
+
 module.exports = router;
