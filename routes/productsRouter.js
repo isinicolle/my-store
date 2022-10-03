@@ -20,6 +20,21 @@ router.get('/products', (req, res) => {
 
 });
 
+router.get('/products/:id', (req, res) => {
+  const {id} = req.params;
+
+  if(id === 999)
+    res.status(404).json({message: 'Product not found'});
+  else
+    res.json({
+      id,
+      name: faker.commerce.productName(),
+      price: parseInt(faker.commerce.price()),
+      image: faker.image.imageUrl()
+    });
+});
+
+
 router.post('/products', (req, res) => {
   const body = req.body;
   res.status(201).json({
